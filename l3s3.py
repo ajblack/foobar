@@ -16,10 +16,8 @@ def answer(l):
     p1Index=0
     p2Index=1
     p3Index=2
-
-
     #while p1Index < len(l)-2:
-    while len(l) > 0:
+    while p1Index < len(l)-2:
         print("moving P1")
         while p2Index < len(l)-1:
             while p3Index < len(l):
@@ -30,12 +28,7 @@ def answer(l):
                 p3Index = findNextMultipleIndex(l, p2Index, p3Index)
             p2Index=findNextMultipleIndex(l, p1Index, p2Index)
             p3Index=findNextMultipleIndex(l, p2Index, p2Index)
-        #p1Index+=1
-        #p2Index=findNextMultipleIndex(l, p1Index, p2Index)
-        #p3Index=findNextMultipleIndex(l, p2Index, p2Index
-
-        l.pop(0)
-        p1Index=0
+        p1Index+=1
         p2Index=findNextMultipleIndex(l,p1Index,p1Index)
         p3Index=findNextMultipleIndex(l,p2Index,p2Index)
     return numMatches
