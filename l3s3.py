@@ -1,64 +1,23 @@
-def findNextMultipleIndex(mylist, multIndex, currentIndex):
-    #find the next index in the list that cleanly divides the passed index
-    for j in range(currentIndex+1, len(mylist)):
-        if mylist[j]%mylist[multIndex]==0:
-            return j
-    #if a multiple is not found, then return the length of the array
-    return len(mylist)
-
-def getMatches(l):
-    listLength = len(l)
-    returnList = []
-
-    p1Index=0
-    p2Index=1
-    p3Index=2
-    #while p1Index < len(l)-2:
-    while p1Index < len(l)-2:
-        while p2Index < len(l)-1:
-            while p3Index < len(l):
-                if l[p3Index]%l[p2Index]==0 and l[p2Index]%l[p1Index]==0:
-                    returnList.append(''.join([str(l[p1Index]),str(l[p2Index]),str(l[p3Index])]))
-                p3Index = findNextMultipleIndex(l, p2Index, p3Index)
-            p2Index=findNextMultipleIndex(l, p1Index, p2Index)
-            p3Index=findNextMultipleIndex(l, p2Index, p2Index)
-        p1Index+=1
-        p2Index=findNextMultipleIndex(l,p1Index,p1Index)
-        p3Index=findNextMultipleIndex(l,p2Index,p2Index)
-    return returnList
-
-
-def getMultiplesOfInt(value, mylist):
-    ret = []
-    #for i in mylist:
-    for myint in mylist:
-        if value%myint==0:
-            ret.append(myint)
-    return ret
-
-def keyDivisor(mykey, mydict):
-    for currentkey in mydict.keys():
-        if currentkey%mykey==0 and currentkey>mykey:
-            return True
-    return False
-
 def answer(l):
-    tuplesSet = set()
-    mydict = {}
-    processedKeys = set()
+    myset = set()
+    lset = set()
+    sumMatches = 0
+    outerIndex=1
     #for v in l:
-    for v in l[::-1]:
-        if not keyDivisor(v, mydict):
-            mydict[v] = getMultiplesOfInt(v, l)
-    print(mydict)
-    for mykey, myvalue in mydict.items():
-        if len(myvalue)>2:
-            valList = getMatches(myvalue)
-            for matchVal in valList:
-                tuplesSet.add(matchVal)
-    return len(tuplesSet)
+    for v in range(0,len(l)-2):
+        for innerV in range(outerIndex,len(l)-1):
+            if l[innerV]%l[v]==0:
+                myset.add((l[v],l[innerV],innerV))
+        outerIndex +=1
+    print(myset)
 
-
+    listIndex = 0
+    for listVal in l:
+        for v1,v2,index in myset:
+            if  listVal >= v2 and  listVal%v2==0 and listIndex>index:
+                sumMatches+=1
+        listIndex+=1
+    return sumMatches
 
 
 l1 =[5,12,20,25,100,112,120,200,240]
@@ -66,4 +25,9 @@ l2 =[5,12,20,25,100,112,200]
 v=answer(l1)
 print(v)
 c=answer(l2)
+print(c)
+
+
+l3=[1,1,1]
+c=answer(l3)
 print(c)
