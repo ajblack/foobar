@@ -33,7 +33,22 @@ def answer(l):
         p3Index=findNextMultipleIndex(l,p2Index,p2Index)
     return numMatches
 
+def getMultiplesOfInt(value, mylist):
+    ret = []
+    for i in mylist:
+        if value%i==0 and i<=value:
+            ret.append(i)
+    return ret
 
-l1 =[5,12,20,25,100,112,200]
-v = answer(l1)
-print(v)
+def newAnswer(l):
+    mydict = {}
+    for v in l:
+        mydict[v] = getMultiplesOfInt(v, l)
+    print(mydict)
+
+
+
+l1 =[5,12,20,25,100,112,120,200,240]
+#v = answer(l1)
+v=newAnswer(l1)
+#print(v)
