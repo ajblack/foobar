@@ -7,9 +7,6 @@ def findNextMultipleIndex(mylist, multIndex, currentIndex):
     return len(mylist)
 
 def getMatches(l):
-    #if the list has less than three entries then it can't have any matching tuples
-    if len(l) < 3:
-        return []
     listLength = len(l)
     returnList = []
 
@@ -36,8 +33,6 @@ def getMultiplesOfInt(value, mylist):
     #for i in mylist:
     for myint in mylist:
         if value%myint==0:
-            print("i is dividable by value")
-            print("i is: , value is: ",myint, value)
             ret.append(myint)
     return ret
 
@@ -72,6 +67,3 @@ v=answer(l1)
 print(v)
 c=answer(l2)
 print(c)
-
-if 12%2==0:
-    print("truth")
