@@ -21,9 +21,7 @@ def getMatches(l):
         while p2Index < len(l)-1:
             while p3Index < len(l):
                 if l[p3Index]%l[p2Index]==0 and l[p2Index]%l[p1Index]==0:
-                    p="match found with P1: %s, P2: %s, P3: %s"%(l[p1Index], l[p2Index], l[p3Index])
-                    #print(p)
-                    returnList.append(''+str(l[p1Index])+","+str(l[p2Index])+","+str(l[p3Index]))
+                    returnList.append(''.join([str(l[p1Index]),str(l[p2Index]),str(l[p3Index])]))
                 p3Index = findNextMultipleIndex(l, p2Index, p3Index)
             p2Index=findNextMultipleIndex(l, p1Index, p2Index)
             p3Index=findNextMultipleIndex(l, p2Index, p2Index)
@@ -33,20 +31,31 @@ def getMatches(l):
     return returnList
 
 
-
-
 def getMultiplesOfInt(value, mylist):
     ret = []
-    for i in mylist:
-        if value%i==0 and i<=value:
-            ret.append(i)
+    #for i in mylist:
+    for myint in mylist:
+        if value%myint==0:
+            print("i is dividable by value")
+            print("i is: , value is: ",myint, value)
+            ret.append(myint)
     return ret
+
+def keyDivisor(mykey, mydict):
+    for currentkey in mydict.keys():
+        if currentkey%mykey==0 and currentkey>mykey:
+            return True
+    return False
 
 def answer(l):
     tuplesSet = set()
     mydict = {}
-    for v in l:
-        mydict[v] = getMultiplesOfInt(v, l)
+    processedKeys = set()
+    #for v in l:
+    for v in l[::-1]:
+        if not keyDivisor(v, mydict):
+            mydict[v] = getMultiplesOfInt(v, l)
+    print(mydict)
     for mykey, myvalue in mydict.items():
         if len(myvalue)>2:
             valList = getMatches(myvalue)
@@ -56,9 +65,13 @@ def answer(l):
 
 
 
+
 l1 =[5,12,20,25,100,112,120,200,240]
 l2 =[5,12,20,25,100,112,200]
 v=answer(l1)
 print(v)
 c=answer(l2)
 print(c)
+
+if 12%2==0:
+    print("truth")
